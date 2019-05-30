@@ -1,4 +1,4 @@
-This tool is a part of Unity workflow optimization project (https://github.com/users/olegpshenin/projects/1)
+This tool is a part of Unity Workflow Optimization project (https://github.com/users/olegpshenin/projects/1)
 
 To use this tool just select any asset in Project window, then:
 - Right click on selected file -> Edit Text
