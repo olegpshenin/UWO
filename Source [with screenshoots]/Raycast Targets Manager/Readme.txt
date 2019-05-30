@@ -1,3 +1,5 @@
+This tool is a part of Unity Workflow Optimization project (https://github.com/users/olegpshenin/projects/1)
+
 To use this utility just select any object you would like to inspect, then:
 - Right click on selected object -> Manage Raycast Targets
 or
