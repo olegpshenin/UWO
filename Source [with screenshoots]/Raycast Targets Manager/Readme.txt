@@ -19,4 +19,4 @@ Tool is campatible with any components which inherits unity's Graphic class, inc
 Contact:
 
 Oleg Pshenin
-oleg.pshenin@gmail.com
+oleg.pshenin@gmail.com
