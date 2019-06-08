@@ -1,7 +1,7 @@
 # UWO
 This project is a set of small tools which simplifies your workflow.
 
-1. **Raycast Targets Maanger**: a tool that allows you to easily manage raycast target properties in any size UI systems.
+1. **Raycast Targets Manager**: a tool that allows you to easily manage raycast target properties in any size UI systems.
 >Saved huge amount of time, especialy for unchecking raycast target inside TextMeshProUGUI component (it is inside folded menu).
 <br>
 
@@ -16,16 +16,16 @@ This project is a set of small tools which simplifies your workflow.
 <br>
 
 4. **Generic scriptable data sets** (waiting for cleaning)
->Unified way to keep data to not overwrite each time initing or getting values
+>Unified way to keep data to not overwrite each time initing or getting values functionality.
 <br>
 
 5. **Switching scenes by hotkey** (waiting for in-editor menu)
->Save the time a lot if you are using mulriple scenes
+>Save the time a lot if you are using multiple scenes in your project.
 <br>
 
 6. **Dublication objects without indexing by hot key** (waiting for uploading)
->Useful time to time, if you don't want to see (1) and so
+>Useful time to time, if you don't want to see (1) and so.
 <br>
 
 7. **Custom layout system with reverse refresh logic** (from bottom to top)
->Unity's UI layout with depth more than 2 doesn't work correctly at all (for example if you are using "price" object with multiple types of currencies with images and dynamic texts for each)
+>Unity's UI layout with depth more than 2 doesn't work correctly at all (for example if you are using "price" object with multiple types of currencies with images and dynamic texts for each).
