@@ -1,6 +1,8 @@
-﻿/* ---------------------------------------
+/* ---------------------------------------
  * Author:          Oleg Pshenin (oleg.pshenin@gmail.com)
  * Project:         Raycast Targets Manager (https://github.com/olegpshenin/RaycastTargetsManager)
+ * part of:         Unity Workflow Optimization (https://github.com/olegpshenin/UWO)
+ *
  * Date:            27-April-19
  * Studio:          Pillbox Game Studio
  * 
@@ -17,6 +19,15 @@ namespace PB
 {
     public class RaycastTargetsManager : EditorWindow
     {
+        private const string TITLE_TEXT = "Raycast Targets Manager";
+        private const string HEADER_LABEL_TEXT = "List of all raycast targets inside ";
+        private const string WITH_CONNECTION_TEXT = "Conencted to:";
+        private const string WITHOUT_CONNECTION_TEXT = "No connection";
+        private const string ENABLE_ALL_BUTTON_TEXT = "Enable Connected";
+        private const string DISABLE_ALL_BUTTON_TEXT = "Disable All";
+        private const string APPLY_BUTTON_TEXT = "Apply";
+        private const string CANCEL_BUTTON_TEXT = "Cancel";
+
         private static Graphic[] _graphicComponents;
         private static Dictionary<Graphic, Selectable> _connectedSelectablesDictionary = new Dictionary<Graphic, Selectable>();
         private static bool[] _toggleArray;
@@ -68,7 +79,7 @@ namespace PB
         private static void ShowWindow()
         {
             var window = GetWindow<RaycastTargetsManager>();
-            window.titleContent = new GUIContent("Raycast Targets Manager");
+            window.titleContent = new GUIContent(TITLE_TEXT);
             window.minSize = new Vector2(514, 356);
             window.Show();
         }
@@ -84,7 +95,7 @@ namespace PB
 
         private void OnGUI()
         {
-            EditorGUILayout.LabelField("List of all raycast targets inside " + _root.gameObject.name + ":", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField(HEADER_LABEL_TEXT + _root.gameObject.name + ":", EditorStyles.boldLabel);
 
             ShowComponentsList();
             ShowButtons();
@@ -129,12 +140,12 @@ namespace PB
 
                 if (_connectedSelectablesDictionary.ContainsKey(_graphicComponents[i]))
                 {
-                    GUILayout.Label("Connected to:", GUILayout.Width(GetConnectionTextWidth()));
+                    GUILayout.Label(WITH_CONNECTION_TEXT, GUILayout.Width(GetConnectionTextWidth()));
                     EditorGUILayout.ObjectField(_connectedSelectablesDictionary[_graphicComponents[i]], typeof(Selectable), false, GUILayout.Width(GetConnectionComponentsWidth()));
                 }
                 else
                 {
-                    GUILayout.Label("No connection", GUILayout.Width(GetConnectionTextWidth()));
+                    GUILayout.Label(WITHOUT_CONNECTION_TEXT, GUILayout.Width(GetConnectionTextWidth()));
                     GUILayout.Label("", GUILayout.Width(GetConnectionComponentsWidth()));
                 }
 
@@ -146,45 +157,60 @@ namespace PB
             }
 
             EditorGUILayout.EndScrollView();
+
+            EditorGUILayout.Space();
         }
 
         private void ShowButtons()
         {
             EditorGUILayout.BeginHorizontal();
 
-            if (GUILayout.Button("Enable All"))
+            EditorGUILayout.BeginVertical(GUILayout.Width(Screen.width / 2 - 5f));
+
+            if (GUILayout.Button(ENABLE_ALL_BUTTON_TEXT))
             {
-                ChangeStateOfAllRaycastTargets(true);
+                EnableAllWithConnection();
             }
 
-            if (GUILayout.Button("Apply"))
+            if (GUILayout.Button(DISABLE_ALL_BUTTON_TEXT))
+            {
+                ChangeStateOfAllRaycastTargets(false);
+            }
+
+            EditorGUILayout.EndVertical();
+
+            EditorGUILayout.BeginVertical(GUILayout.Width(Screen.width / 2 - 5f));
+
+            if (GUILayout.Button(APPLY_BUTTON_TEXT))
             {
                 ApplyRaycastTargetStates();
                 Close();
             }
 
-            EditorGUILayout.EndHorizontal();
-
-            EditorGUILayout.BeginHorizontal();
-
-            if (GUILayout.Button("Disable All"))
-            {
-                ChangeStateOfAllRaycastTargets(false);
-            }
-
-            if (GUILayout.Button("Cancel"))
+            if (GUILayout.Button(CANCEL_BUTTON_TEXT))
             {
                 Close();
             }
+
+            EditorGUILayout.EndVertical();
 
             EditorGUILayout.EndHorizontal();
         }
 
         private void ChangeStateOfAllRaycastTargets(bool state)
         {
-            for (int i = 0; i < _toggleArray.Length; i++)
+            for (int i = 0; i < _graphicComponents.Length; i++)
             {
                 _toggleArray[i] = state;
+            }
+        }
+
+        private void EnableAllWithConnection()
+        {
+            for (int i = 0; i < _toggleArray.Length; i++)
+            {
+                var haveConnection = _connectedSelectablesDictionary.ContainsKey(_graphicComponents[i]);
+                _toggleArray[i] = haveConnection;
             }
         }
 
